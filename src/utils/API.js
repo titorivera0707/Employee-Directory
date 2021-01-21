@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default {
   getRandomEmployee: async function() {
-    let res = await axios.get("https://randomuser.me/api/?results=100");
+    let res = await axios.get("https://randomuser.me/api/?results=30");
     console.log(res)
     return res
 
