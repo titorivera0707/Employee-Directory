@@ -13,8 +13,8 @@ export default {
   //   let res = await axios.get("https://randomuser.me/api/?gender=" +gender);
   //   return res
   // },
-  // getEmployeeNames: async function(employee) {
-  //   let res = await axios.get("https://randomuser.me/api/?inc="+employee);
-  //   return res
-  // }
+  getEmployeeNames: async function(employee) {
+    let res = await axios.get("https://randomuser.me/api/?inc="+employee);
+    return res
+  }
 };

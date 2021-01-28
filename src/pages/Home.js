@@ -35,10 +35,20 @@ class Home extends Component {
         this.setState({ search: event.target.value });
       };
     
-      // handleFormSubmit = event => {
-      //   event.preventDefault();
-      //       this.setState({ results: res.data.message, error: "" });
-      //     }
+      handleFormSubmit = event => {
+        event.preventDefault();
+        API.getEmployeeNames(this.state.search)
+          .then(res => {
+            this.setState({ employees: res.data.results.map((employee) => {
+              return{
+                ...employee,
+                name: employee.name.last + ", " + employee.name.first,
+                firstName: employee.name.first,
+                lastName: employee.name.last
+              }
+            }) })
+          })
+          }
 
     render() {
         return (

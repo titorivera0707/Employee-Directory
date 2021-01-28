@@ -1,15 +1,42 @@
 import { Table, Column, Cell, HeaderCell } from "rsuite-table";
 import React from "react"
+import API from "../../utils/API"
 
 class RTable extends React.Component {
   constructor(props) {
     super(props);
-    const data = props.employees
+    const data = this.getEmployees
     this.state = {
       addColumn: false,
       data
     };
     this.handleSortColumn = this.handleSortColumn.bind(this);
+  }
+
+  componentDidMount() {
+    this.getEmployees()
+  }
+
+  componentDidUpdate() {
+    
+  }
+
+  getEmployees() {
+    API.getRandomEmployee()
+    .then(res=> {
+      this.setState({ data: res.data.results.map((employee)=> {
+        return{
+          ...employee,
+          name: employee.name.last + ", " + employee.name.first,
+          firstName: employee.name.first,
+          lastName: employee.name.last
+        }
+      })
+      });
+    })
+  
+    // .then(res => this.setState({ employees: data }))
+    .catch(err => console.log(err));
   }
 
     getData() {
@@ -71,7 +98,7 @@ class RTable extends React.Component {
           </Column>
           <Column width={300} align="center" fixed resizable>
             <HeaderCell>Birthday</HeaderCell>
-            <Cell>{rowData => rowData.dob.date}</Cell>
+            <Cell>{rowData => rowData.dob.date.split("T")[0]}</Cell>
           </Column>
           <Column width={300} align="center" fixed resizable>
             <HeaderCell>Phone Number</HeaderCell>
